@@ -15,7 +15,7 @@ function BookList(props) {
     };
 
     const listItems = books.map((book) => (
-        <li>
+        <li key={book.isbn}>
             <article className="book">
                 <img
                     src={getCover(book.cover)}
@@ -24,14 +24,8 @@ function BookList(props) {
                     height="360px"
                     className="book__thumb"
                 />
-                <div className="book__wrap">
-                    <p className="book__description book__description--title">{book.title}</p>
-                    <p className="book__description book__description--author">{book.author}</p>
-                    <p className="book__description">ISIN: {book.isbn}</p>
-                    <p className="book__description">Год издания: {book.year}</p>
-                    <p className="book__description">Рейтинг: {book.rating}/5</p>
-                    <p className="book__description">{book.description}</p>
-                </div>
+                <p className="book__title">{book.title}</p>
+                <p className="book__author">{book.author}</p>
             </article>
         </li>
     ));

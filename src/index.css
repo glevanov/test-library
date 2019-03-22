@@ -1,45 +1,38 @@
 @import "fonts.css";
 
-body {
+.page {
     font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    color: #000000;
 }
 
 .feed {
     display: flex;
     margin: 0;
     padding: 0;
-    column-gap: 20px;
-    row-gap: 20px;
+    column-gap: 30px;
+    row-gap: 30px;
     flex-wrap: wrap;
 
     list-style: none;
 }
 
 .book {
-    display: flex;
-    width: 500px;
+    width: 236px;
 }
 
-.book__thumb {
-    margin-right: 15px;
-}
+.book__title {
+    margin: 0 0 5px;
 
-.book__description {
-    margin: 0;
-    margin-bottom: 7px;
-
-    font-size: 16px;
-}
-
-.book__description:last-of-type {
-    margin-bottom: 0;
-}
-
-.book__description--title {
     font-weight: 700;
     font-size: 20px;
 }
 
-.book__description--author {
-    margin-bottom: 20px;
+.book__author {
+    margin: 0;
+
+    font-style: italic;
+    color: #999999;
 }
+
