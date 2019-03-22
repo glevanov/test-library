@@ -1,0 +1,10 @@
+.feed {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    column-gap: 30px;
+    row-gap: 30px;
+    flex-wrap: wrap;
+
+    list-style: none;
+}

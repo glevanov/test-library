@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import mockBooks from './books';
 
+function AddBook(props) {
+    return (
+        <li
+            key={'add book'}
+            className="book-add"
+        >
+            <a href="#">Добавить книгу</a>
+        </li>
+    )
+}
+
 function BookList(props) {
     const books = props.books;
 
@@ -20,15 +31,16 @@ function BookList(props) {
                 <img
                     src={getCover(book.cover)}
                     alt={book.title}
-                    width="236px"
-                    height="360px"
+                    width="236"
+                    height="360"
                     className="book__thumb"
                 />
                 <p className="book__title">{book.title}</p>
                 <p className="book__author">{book.author}</p>
             </article>
         </li>
-    ));
+    ))
+        .concat(<AddBook />);
 
     return (
         <ul className="feed">{listItems}</ul>
