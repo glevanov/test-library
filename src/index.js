@@ -5,24 +5,39 @@ import mockBooks from './books';
 
 function BookList(props) {
     const books = props.books;
-    const noCover = require('./nocover.jpg');
+
+    const getCover = (url) => {
+        const noCover = require('./nocover.jpg');
+        if (!url) {
+            return noCover;
+        }
+        return url;
+    };
 
     const listItems = books.map((book) => (
         <li>
             <article className="book">
-                <img src={noCover} alt={book.title}/>
-                <p className="book__description book__description--title">{book.title}</p>
-                <p className="book__description book__description--author">{book.author}</p>
-                <p className="book__description">{book.isbn}</p>
-                <p className="book__description">{book.year}</p>
-                <p className="book__description">{book.rating}</p>
-                <p className="book__description">{book.description}</p>
+                <img
+                    src={getCover(book.cover)}
+                    alt={book.title}
+                    width="236px"
+                    height="360px"
+                    className="book__thumb"
+                />
+                <div className="book__wrap">
+                    <p className="book__description book__description--title">{book.title}</p>
+                    <p className="book__description book__description--author">{book.author}</p>
+                    <p className="book__description">ISIN: {book.isbn}</p>
+                    <p className="book__description">Год издания: {book.year}</p>
+                    <p className="book__description">Рейтинг: {book.rating}/5</p>
+                    <p className="book__description">{book.description}</p>
+                </div>
             </article>
         </li>
     ));
 
     return (
-        <ul>{listItems}</ul>
+        <ul className="feed">{listItems}</ul>
     )
 }
 
