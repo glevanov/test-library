@@ -3,17 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import mockBooks from './books';
 
-function AddBook(props) {
-    return (
-        <li
-            key={'add book'}
-            className="book-add"
-        >
-            <a href="#">Добавить книгу</a>
-        </li>
-    )
-}
-
 function BookList(props) {
     const books = props.books;
 
@@ -36,15 +25,43 @@ function BookList(props) {
                     className="book__thumb"
                 />
                 <p className="book__title">{book.title}</p>
-                <p className="book__author">{book.author}</p>
+                <p className="book__rating">{book.rating}/5</p>
             </article>
         </li>
-    ))
-        .concat(<AddBook />);
+    ));
 
     return (
         <ul className="feed">{listItems}</ul>
     )
+}
+
+class Menu extends React.Component {
+    render() {
+        return (
+            <header className="header">
+                <nav className="menu">
+                    <ul className="menu__list">
+                        <li>
+                            <a
+                                className="menu__button"
+                                href="./"
+                            >
+                                Главная
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                className="menu__button"
+                                href="./bookadd.html"
+                            >
+                                Добавить книгу
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </header>
+        )
+    }
 }
 
 class App extends React.Component {
@@ -52,14 +69,18 @@ class App extends React.Component {
         super(props);
         this.state = {
             books: mockBooks,
+            isModalVisible: false,
         };
     }
 
     render() {
         return (
             <>
-                <h1>Библиотека</h1>
-                <BookList books={this.state.books} />
+                <Menu />
+                <main className="main">
+                    <h1>Библиотека</h1>
+                    <BookList books={this.state.books} />
+                </main>
             </>
         );
     }

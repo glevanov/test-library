@@ -9,9 +9,6 @@
     font-size: 20px;
 }
 
-.book__author {
+.book__rating {
     margin: 0;
-
-    font-style: italic;
-    color: #999999;
 }

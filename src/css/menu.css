@@ -1,0 +1,29 @@
+.menu {
+    padding: 15px 20px;
+}
+
+.menu__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    column-gap: 20px;
+
+    list-style: none;
+}
+
+.menu__button {
+    display: block;
+    padding: 10px;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #ffffff;
+    border-radius: 2px;
+
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.menu__button:hover,
+.menu__button:focus {
+    background-color: rgba(255, 255, 255, 0.4);
+}
