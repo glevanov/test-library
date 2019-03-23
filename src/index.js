@@ -74,33 +74,74 @@ class AddBook extends React.Component {
                     <fieldset className="add-book__fieldset">
                         <label className="add-book__label">
                             Название:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="text"
+                                required
+                            />
                         </label>
                         <label className="add-book__label">
                             Обложка:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="text"
+                                disabled
+                            />
                         </label>
                         <label className="add-book__label">
                             Описание:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="text"
+                                required
+                            />
                         </label>
                         <label className="add-book__label">
                             Автор:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="text"
+                                required
+                            />
                         </label>
                         <label className="add-book__label">
                             Код ISBN:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="text"
+                                required
+                            />
                         </label>
                         <label className="add-book__label">
                             Год издания:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="number"
+                                required
+                            />
                         </label>
                         <label className="add-book__label">
                             Рейтинг:
-                            <input type="text"/>
+                            <input
+                                className="add-book__input"
+                                type="number"
+                            />
                         </label>
                     </fieldset>
+                    <div className="add-book__buttons-wrap">
+                        <button
+                            className="add-book__button"
+                            type="submit"
+                        >
+                            Добавить
+                        </button>
+                        <button
+                            className="add-book__button"
+                            type="button"
+                        >
+                            Назад
+                        </button>
+                    </div>
                 </form>
             </div>
         )
