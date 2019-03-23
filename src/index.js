@@ -53,6 +53,7 @@ class Menu extends React.Component {
                             <a
                                 className="menu__button"
                                 href="./bookadd.html"
+                                onClick={(e) => this.props.onAddClick(e)}
                             >
                                 Добавить книгу
                             </a>
@@ -73,10 +74,18 @@ class App extends React.Component {
         };
     }
 
+    onAddClick(e) {
+        e.preventDefault();
+        this.setState(state => ({
+            isModalVisible: !state.isModalVisible,
+            })
+        )
+    }
+
     render() {
         return (
             <>
-                <Menu />
+                <Menu onAddClick={(e) => this.onAddClick(e)} />
                 <main className="main">
                     <h1>Библиотека</h1>
                     <BookList books={this.state.books} />
