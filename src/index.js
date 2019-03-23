@@ -65,6 +65,48 @@ class Menu extends React.Component {
     }
 }
 
+class AddBook extends React.Component {
+    render() {
+        return (
+            <div className="add-book">
+                <form className="add-book__form">
+                    <h2>Добавить книгу</h2>
+                    <fieldset className="add-book__fieldset">
+                        <label className="add-book__label">
+                            Название:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Обложка:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Описание:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Автор:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Код ISBN:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Год издания:
+                            <input type="text"/>
+                        </label>
+                        <label className="add-book__label">
+                            Рейтинг:
+                            <input type="text"/>
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+        )
+    }
+}
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -90,6 +132,7 @@ class App extends React.Component {
                     <h1>Библиотека</h1>
                     <BookList books={this.state.books} />
                 </main>
+                <AddBook />
             </>
         );
     }
