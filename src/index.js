@@ -14,9 +14,10 @@ class App extends React.Component {
             isModalVisible: false,
         };
         this.addBook = this.addBook.bind(this);
+        this.switchModal = this.switchModal.bind(this);
     }
 
-    onAddClick(evt) {
+    switchModal(evt) {
         evt.preventDefault();
         this.setState(state => ({
             isModalVisible: !state.isModalVisible,
@@ -26,7 +27,6 @@ class App extends React.Component {
 
     addBook(evt, book) {
         evt.preventDefault();
-        console.log(book);
         this.setState((state) => ({
                 books: state.books.concat([book]),
             })
@@ -36,12 +36,17 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <Menu onAddClick={(evt) => this.onAddClick(evt)} />
+                <Menu switchModal={(evt) => this.switchModal(evt)} />
                 <main className="main">
                     <h1>Библиотека</h1>
                     <BookList books={this.state.books} />
                 </main>
-                <AddBook addBook={this.addBook} />
+                {this.state.isModalVisible &&
+                    <AddBook
+                        addBook={this.addBook}
+                        switchModal={this.switchModal}
+                    />
+                }
             </>
         );
     }

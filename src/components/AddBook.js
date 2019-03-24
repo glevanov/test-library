@@ -20,6 +20,7 @@ export default class AddBook extends React.Component {
     handleSubmit(evt) {
         const data = {...this.state};
         this.props.addBook(evt, data);
+        this.props.switchModal(evt);
     }
 
     handleInputChange(evt) {
@@ -124,6 +125,7 @@ export default class AddBook extends React.Component {
                         <button
                             className="add-book__button"
                             type="button"
+                            onClick={this.props.switchModal}
                         >
                             Назад
                         </button>
