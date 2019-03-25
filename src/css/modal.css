@@ -16,7 +16,8 @@
 }
 
 .modal__form {
-    min-width: 320px;
+    width: 100%;
+    max-width: 680px;
     padding: 15px 20px;
     box-sizing: border-box;
 
@@ -40,8 +41,24 @@
 
 .modal__input {
     width: auto;
+    padding: 2px 5px;
 
+    font: inherit;
     font-size: 16px;
+
+    border: 1px solid #aaaaaa;
+
+    resize: none;
+}
+
+.modal__input:disabled {
+    border-color: transparent;
+    background-color: #eeeeee;
+}
+
+.modal__input:focus {
+    border-color: #000000;
+    box-shadow:  0 0 3px rgba(0,0,0,0.5);
 }
 
 .modal__buttons-wrap {

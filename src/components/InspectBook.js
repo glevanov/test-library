@@ -1,9 +1,53 @@
 import React from "react";
 
 export default class InspectBook extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEditingEnabled: false,
+            index: this.props.book.index,
+            updatedBook: {
+                title: this.props.book.title,
+                cover: this.props.book.cover,
+                description: this.props.book.description,
+                author: this.props.book.author,
+                isbn: this.props.book.isbn,
+                year: this.props.book.year,
+                rating: this.props.book.rating,
+            }
+        };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange(evt) {
+        const target = evt.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState(state => ({
+            updatedBook: {
+                ...state.updatedBook,
+                [name]: value
+            }
+        }));
+    }
+
+    handleSubmit (evt) {
+        evt.preventDefault();
+        this.setState({
+            isEditingEnabled: !this.state.isEditingEnabled
+        });
+        if (this.state.isEditingEnabled) {
+            this.props.updateBook(evt, this.state.updatedBook, this.state.index);
+            this.props.switchModal(evt, 'InspectBook');
+        }
+    }
+
     render() {
         return (
-            <section>
+            <section className="modal">
                 <form
                     className="modal__form"
                     onSubmit={this.handleSubmit}
@@ -17,7 +61,9 @@ export default class InspectBook extends React.Component {
                                 className="modal__input"
                                 type="text"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.title}
                                 required
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                         <label className="modal__label">
@@ -31,12 +77,14 @@ export default class InspectBook extends React.Component {
                         </label>
                         <label className="modal__label">
                             Описание:
-                            <input
+                            <textarea
                                 name="description"
                                 className="modal__input"
-                                type="text"
+                                rows="5"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.description}
                                 required
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                         <label className="modal__label">
@@ -46,7 +94,9 @@ export default class InspectBook extends React.Component {
                                 className="modal__input"
                                 type="text"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.author}
                                 required
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                         <label className="modal__label">
@@ -56,7 +106,9 @@ export default class InspectBook extends React.Component {
                                 className="modal__input"
                                 type="text"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.isbn}
                                 required
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                         <label className="modal__label">
@@ -67,7 +119,9 @@ export default class InspectBook extends React.Component {
                                 type="number"
                                 step="1"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.year}
                                 required
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                         <label className="modal__label">
@@ -80,6 +134,8 @@ export default class InspectBook extends React.Component {
                                 max="5"
                                 step="0.1"
                                 onChange={this.handleInputChange}
+                                value={this.state.updatedBook.rating}
+                                disabled={!this.state.isEditingEnabled}
                             />
                         </label>
                     </fieldset>
@@ -87,8 +143,9 @@ export default class InspectBook extends React.Component {
                         <button
                             className="modal__button"
                             type="submit"
+                            onClick={(evt) => this.handleSubmit(evt)}
                         >
-                            Добавить
+                            {this.state.isEditingEnabled ? 'Изменить книгу' : 'Редактировать'}
                         </button>
                         <button
                             className="modal__button"

@@ -18,8 +18,8 @@ export default class AddBook extends React.Component {
     }
 
     handleSubmit(evt) {
-        const data = {...this.state};
-        this.props.addBook(evt, data);
+        const book = {...this.state};
+        this.props.addBook(evt, book);
         this.props.switchModal(evt, 'AddBook');
     }
 

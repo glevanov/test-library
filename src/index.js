@@ -14,8 +14,11 @@ class App extends React.Component {
             books: mockBooks,
             isAddBookVisible: false,
             isInspectBookVisible: false,
+            currentBook: {},
         };
         this.addBook = this.addBook.bind(this);
+        this.inspectBook = this.inspectBook.bind(this);
+        this.updateBook = this.updateBook.bind(this);
         this.switchModal = this.switchModal.bind(this);
     }
 
@@ -24,7 +27,7 @@ class App extends React.Component {
         this.setState(state => ({
             [`is${modal}Visible`]: !state[`is${modal}Visible`],
             })
-        )
+        );
     }
 
     addBook(evt, book) {
@@ -35,13 +38,35 @@ class App extends React.Component {
         );
     }
 
+    inspectBook(evt, i) {
+        evt.preventDefault();
+        const book = this.state.books.slice(i, i + 1)[0];
+        book.index = i;
+        this.setState({currentBook: book});
+    }
+
+    updateBook(evt, book, i) {
+        this.setState((state) => ({
+                books: [].concat(
+                    state.books.slice(0, i),
+                    [book],
+                    state.books.slice(i + 1),
+                ),
+            })
+        );
+    }
+
     render() {
         return (
             <>
                 <Menu switchModal={this.switchModal} />
                 <main className="main">
                     <h1>Библиотека</h1>
-                    <BookList books={this.state.books} />
+                    <BookList
+                        books={this.state.books}
+                        switchModal={this.switchModal}
+                        inspectBook={this.inspectBook}
+                    />
                 </main>
                 {this.state.isAddBookVisible &&
                     <AddBook
@@ -50,9 +75,10 @@ class App extends React.Component {
                     />
                 }
                 {this.state.isInspectBookVisible &&
-                <AddBook
-                    addBook={this.addBook}
-                    switchModal={this.switchModal}
+                    <InspectBook
+                        book={this.state.currentBook}
+                        switchModal={this.switchModal}
+                        updateBook={this.updateBook}
                 />
                 }
             </>
