@@ -5,22 +5,24 @@ import mockBooks from './books';
 import BookList from './components/BookList';
 import Menu from './components/Menu';
 import AddBook from './components/AddBook';
+import InspectBook from './components/InspectBook';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             books: mockBooks,
-            isModalVisible: false,
+            isAddBookVisible: false,
+            isInspectBookVisible: false,
         };
         this.addBook = this.addBook.bind(this);
         this.switchModal = this.switchModal.bind(this);
     }
 
-    switchModal(evt) {
+    switchModal(evt, modal) {
         evt.preventDefault();
         this.setState(state => ({
-            isModalVisible: !state.isModalVisible,
+            [`is${modal}Visible`]: !state[`is${modal}Visible`],
             })
         )
     }
@@ -36,16 +38,22 @@ class App extends React.Component {
     render() {
         return (
             <>
-                <Menu switchModal={(evt) => this.switchModal(evt)} />
+                <Menu switchModal={this.switchModal} />
                 <main className="main">
                     <h1>Библиотека</h1>
                     <BookList books={this.state.books} />
                 </main>
-                {this.state.isModalVisible &&
+                {this.state.isAddBookVisible &&
                     <AddBook
                         addBook={this.addBook}
                         switchModal={this.switchModal}
                     />
+                }
+                {this.state.isInspectBookVisible &&
+                <AddBook
+                    addBook={this.addBook}
+                    switchModal={this.switchModal}
+                />
                 }
             </>
         );

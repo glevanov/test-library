@@ -1,46 +1,14 @@
 import React from "react";
 
-export default class AddBook extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            title: null,
-            cover: null,
-            description: null,
-            author: null,
-            isbn: null,
-            year: null,
-            rating: 0,
-        };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleSubmit(evt) {
-        const data = {...this.state};
-        this.props.addBook(evt, data);
-        this.props.switchModal(evt, 'AddBook');
-    }
-
-    handleInputChange(evt) {
-        const target = evt.target;
-        const value = target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
+export default class InspectBook extends React.Component {
     render() {
         return (
-            <section className="modal">
+            <section>
                 <form
                     className="modal__form"
                     onSubmit={this.handleSubmit}
                 >
-                    <h2>Добавить книгу</h2>
+                    <h2>Просмотр и редактирование</h2>
                     <fieldset className="modal__fieldset">
                         <label className="modal__label">
                             Название:
@@ -125,7 +93,7 @@ export default class AddBook extends React.Component {
                         <button
                             className="modal__button"
                             type="button"
-                            onClick={(evt) => this.props.switchModal(evt, 'AddBook')}
+                            onClick={(evt) => this.props.switchModal(evt, 'InspectBook')}
                         >
                             Назад
                         </button>

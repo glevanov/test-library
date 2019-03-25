@@ -1,4 +1,4 @@
-.add-book {
+.modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.add-book__form {
+.modal__form {
     min-width: 320px;
     padding: 15px 20px;
     box-sizing: border-box;
@@ -23,7 +23,7 @@
     background-color: #ffffff;
 }
 
-.add-book__fieldset {
+.modal__fieldset {
     display: flex;
     flex-direction: column;
     margin: 7px 0;
@@ -33,23 +33,23 @@
     border: 1px solid #999999;
 }
 
-.add-book__label {
+.modal__label {
     display: flex;
     flex-direction: column;
 }
 
-.add-book__input {
+.modal__input {
     width: auto;
 
     font-size: 16px;
 }
 
-.add-book__buttons-wrap {
+.modal__buttons-wrap {
     display: flex;
     column-gap: 15px;
 }
 
-.add-book__button {
+.modal__button {
     display: block;
     padding: 10px;
 
@@ -62,7 +62,7 @@
     color: #000000;
 }
 
-.add-book__button:hover,
-.add-book__button:focus {
+.modal__button:hover,
+.modal__button:focus {
     background-color: rgba(0, 0, 0, 0.1);
 }

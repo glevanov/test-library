@@ -19,7 +19,7 @@ export default class Menu extends React.Component {
                             <a
                                 className="menu__button"
                                 href="./bookadd.html"
-                                onClick={(evt) => this.props.switchModal(evt)}
+                                onClick={(evt) => this.props.switchModal(evt, 'AddBook')}
                             >
                                 Добавить книгу
                             </a>
