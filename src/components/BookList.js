@@ -22,15 +22,20 @@ export default class BookList extends React.Component {
                 onClick={(evt) => this.handleClick(evt, i)}
             >
                 <article className="book">
-                    <img
-                        src={BookList.getCover(book.cover)}
-                        alt={book.title}
-                        width="236"
-                        height="360"
-                        className="book__thumb"
-                    />
-                    <p className="book__title">{book.title}</p>
-                    <p className="book__rating">{book.rating}/5</p>
+                    <a
+                        href={`./${book.isbn}.html`}
+                        className="book__link"
+                    >
+                        <img
+                            src={BookList.getCover(book.cover)}
+                            alt={book.title}
+                            width="236"
+                            height="360"
+                            className="book__thumb"
+                        />
+                        <p className="book__title">{book.title}</p>
+                        <p className="book__rating">{book.rating}/5</p>
+                    </a>
                 </article>
             </li>
         ));
