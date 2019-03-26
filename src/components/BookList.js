@@ -16,9 +16,7 @@ export default class BookList extends React.Component {
                         <img
                             src={getCover(book.cover)}
                             alt={book.title}
-                            width="236"
-                            height="360"
-                            className="book__thumb"
+                            className="book__thumb image-preview"
                         />
                         <p className="book__title">{book.title}</p>
                         <StarRatingComponent

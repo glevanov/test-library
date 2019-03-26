@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 import StarRatingComponent from "react-star-rating-component";
+import { getCover } from "../util"
 
 export default class AddBook extends React.Component {
     constructor(props) {
@@ -9,7 +10,7 @@ export default class AddBook extends React.Component {
             updatedBook: {
                 title: null,
                 cover: null,
-                description: null,
+                description: "",
                 author: null,
                 isbn: null,
                 year: null,
@@ -20,6 +21,7 @@ export default class AddBook extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
         this.handleStarClick = this.handleStarClick.bind(this);
     }
 
@@ -42,6 +44,21 @@ export default class AddBook extends React.Component {
         }));
     }
 
+    handleFileUpload(evt) {
+        const file = evt.target.files[0];
+        const reader = new FileReader();
+
+        reader.addEventListener("load", () => {
+            this.setState(state => ({
+                updatedBook: {
+                    ...state.updatedBook,
+                    cover: reader.result,
+                }
+            }));
+        }, false);
+        reader.readAsDataURL(file);
+    }
+
     handleStarClick(newValue) {
         this.setState(state => ({
             updatedBook: {
@@ -62,6 +79,11 @@ export default class AddBook extends React.Component {
                     className="modal__form"
                     onSubmit={this.handleSubmit}
                 >
+                    <img
+                        src={getCover(this.state.updatedBook.cover)}
+                        alt={this.state.updatedBook.description}
+                        className="image-preview"
+                    />
                     <h2>Добавить книгу</h2>
                     <fieldset className="modal__fieldset">
                         <label className="modal__label">
@@ -79,8 +101,8 @@ export default class AddBook extends React.Component {
                             <input
                                 name="cover"
                                 className="modal__input"
-                                type="text"
-                                disabled
+                                type="file"
+                                onChange={this.handleFileUpload}
                             />
                         </label>
                         <label className="modal__label">

@@ -66,9 +66,7 @@ export default class InspectBook extends React.Component {
                     <img
                         src={getCover(this.state.updatedBook.cover)}
                         alt={this.state.updatedBook.title}
-                        width="236"
-                        height="360"
-                        className="modal__thumb"
+                        className="image-preview"
                     />
                     <form
                         className="modal__form"
