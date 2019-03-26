@@ -1,33 +1,19 @@
 import React from "react";
+import { getCover} from "../util";
+import { Link } from "react-router-dom";
 
 export default class BookList extends React.Component {
-    static getCover (url) {
-        const noCover = require('../nocover.jpg');
-        if (!url) {
-            return noCover;
-        }
-        return url;
-    };
-
-    handleClick (evt, i) {
-        evt.preventDefault();
-        this.props.switchModal(evt, 'InspectBook');
-        this.props.inspectBook(evt, i);
-    };
-
     render() {
         const listItems = this.props.books.map((book, i) => (
-            <li
-                key={book.isbn}
-                onClick={(evt) => this.handleClick(evt, i)}
-            >
+            <li key={book.isbn}>
                 <article className="book">
-                    <a
-                        href={`./${book.isbn}.html`}
+                    <Link
                         className="book__link"
+                        to="/inspect"
+                        onClick={() => this.props.inspectBook(i)}
                     >
                         <img
-                            src={BookList.getCover(book.cover)}
+                            src={getCover(book.cover)}
                             alt={book.title}
                             width="236"
                             height="360"
@@ -35,7 +21,7 @@ export default class BookList extends React.Component {
                         />
                         <p className="book__title">{book.title}</p>
                         <p className="book__rating">{book.rating}/5</p>
-                    </a>
+                    </Link>
                 </article>
             </li>
         ));

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class Menu extends React.Component {
     render() {
@@ -7,22 +8,20 @@ export default class Menu extends React.Component {
                 <nav className="menu">
                     <ul className="menu__list">
                         <li>
-                            <a
+                            <Link
                                 className="menu__button"
-                                href="./"
-                                onClick={(evt) => evt.preventDefault()}
+                                to="/"
                             >
                                 Главная
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a
+                            <Link
                                 className="menu__button"
-                                href="./bookadd.html"
-                                onClick={(evt) => this.props.switchModal(evt, 'AddBook')}
+                                to="/add/"
                             >
                                 Добавить книгу
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </nav>

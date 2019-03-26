@@ -1,16 +1,20 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 export default class AddBook extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: null,
-            cover: null,
-            description: null,
-            author: null,
-            isbn: null,
-            year: null,
-            rating: 0,
+            updatedBook: {
+                title: null,
+                cover: null,
+                description: null,
+                author: null,
+                isbn: null,
+                year: null,
+                rating: 0,
+            },
+            readyToSubmit: false,
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,9 +22,9 @@ export default class AddBook extends React.Component {
     }
 
     handleSubmit(evt) {
-        const book = {...this.state};
-        this.props.addBook(evt, book);
-        this.props.switchModal(evt, 'AddBook');
+        evt.preventDefault();
+        this.props.addBook(evt, this.state.updatedBook);
+        this.setState({readyToSubmit: true})
     }
 
     handleInputChange(evt) {
@@ -28,12 +32,19 @@ export default class AddBook extends React.Component {
         const value = target.value;
         const name = target.name;
 
-        this.setState({
-            [name]: value
-        });
+        this.setState(state => ({
+            updatedBook: {
+                ...state.updatedBook,
+                [name]: value
+            }
+        }));
     }
 
     render() {
+        if (this.state.readyToSubmit) {
+            return <Redirect to="/" />
+        }
+
         return (
             <section className="modal">
                 <form
@@ -63,10 +74,10 @@ export default class AddBook extends React.Component {
                         </label>
                         <label className="modal__label">
                             Описание:
-                            <input
+                            <textarea
                                 name="description"
                                 className="modal__input"
-                                type="text"
+                                rows="5"
                                 onChange={this.handleInputChange}
                                 required
                             />
@@ -115,21 +126,12 @@ export default class AddBook extends React.Component {
                             />
                         </label>
                     </fieldset>
-                    <div className="modal__buttons-wrap">
-                        <button
-                            className="modal__button"
-                            type="submit"
-                        >
-                            Добавить
-                        </button>
-                        <button
-                            className="modal__button"
-                            type="button"
-                            onClick={(evt) => this.props.switchModal(evt, 'AddBook')}
-                        >
-                            Назад
-                        </button>
-                    </div>
+                    <button
+                        className="modal__button"
+                        type="submit"
+                    >
+                        Добавить
+                    </button>
                 </form>
             </section>
         )

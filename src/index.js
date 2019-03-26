@@ -1,33 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 import './index.css';
 import mockBooks from './books';
-import BookList from './components/BookList';
-import Menu from './components/Menu';
-import AddBook from './components/AddBook';
-import InspectBook from './components/InspectBook';
+import Root from './components/Root';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import InspectBook from "./components/InspectBook";
+import AddBook from "./components/AddBook";
+import BookList from "./components/BookList";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             books: mockBooks,
-            isAddBookVisible: false,
-            isInspectBookVisible: false,
             currentBook: {},
         };
         this.addBook = this.addBook.bind(this);
         this.inspectBook = this.inspectBook.bind(this);
         this.updateBook = this.updateBook.bind(this);
-        this.switchModal = this.switchModal.bind(this);
-    }
-
-    switchModal(evt, modal) {
-        evt.preventDefault();
-        this.setState(state => ({
-            [`is${modal}Visible`]: !state[`is${modal}Visible`],
-            })
-        );
     }
 
     addBook(evt, book) {
@@ -38,8 +28,7 @@ class App extends React.Component {
         );
     }
 
-    inspectBook(evt, i) {
-        evt.preventDefault();
+    inspectBook(i) {
         const book = this.state.books.slice(i, i + 1)[0];
         book.index = i;
         this.setState({currentBook: book});
@@ -58,35 +47,38 @@ class App extends React.Component {
 
     render() {
         return (
-            <>
-                <Menu switchModal={this.switchModal} />
-                <main className="main">
-                    <h1>Библиотека</h1>
-                    <BookList
-                        books={this.state.books}
-                        switchModal={this.switchModal}
-                        inspectBook={this.inspectBook}
-                    />
-                </main>
-                {this.state.isAddBookVisible &&
-                    <AddBook
-                        addBook={this.addBook}
-                        switchModal={this.switchModal}
-                    />
-                }
-                {this.state.isInspectBookVisible &&
-                    <InspectBook
-                        book={this.state.currentBook}
-                        switchModal={this.switchModal}
-                        updateBook={this.updateBook}
-                />
-                }
-            </>
+            <Router>
+                <Root>
+                    <Switch>
+                        <Route
+                            exact
+                            path="/"
+                            render={() => <BookList
+                                books={this.state.books}
+                                inspectBook={this.inspectBook}
+                            />}
+                        />
+                        <Route
+                            path="/add/"
+                            render={() => <AddBook
+                                addBook={this.addBook}
+                            />}
+                        />
+                        <Route
+                            path="/inspect/"
+                            render={() => <InspectBook
+                                book={this.state.currentBook}
+                                updateBook={this.updateBook}
+                            />}
+                        />
+                    </Switch>
+                </Root>
+            </Router>
         );
     }
 }
 
-ReactDOM.render(
+render(
     <App />,
     document.getElementById('root'),
 );
