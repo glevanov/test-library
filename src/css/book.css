@@ -11,6 +11,7 @@
 
 .book__rating {
     margin: 0;
+    font-size: 24px;
 }
 
 .book__link {

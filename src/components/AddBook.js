@@ -47,14 +47,15 @@ export default class AddBook extends React.Component {
     handleFileUpload(evt) {
         const file = evt.target.files[0];
         const reader = new FileReader();
-
         reader.addEventListener("load", () => {
-            this.setState(state => ({
-                updatedBook: {
-                    ...state.updatedBook,
-                    cover: reader.result,
-                }
-            }));
+            if (file.type.startsWith('image/')) {
+                this.setState(state => ({
+                    updatedBook: {
+                        ...state.updatedBook,
+                        cover: reader.result,
+                    }
+                }));
+            }
         }, false);
         reader.readAsDataURL(file);
     }
@@ -75,94 +76,96 @@ export default class AddBook extends React.Component {
 
         return (
             <section className="modal">
-                <form
-                    className="modal__form"
-                    onSubmit={this.handleSubmit}
-                >
+                <h2 className="modal__heading">Добавить книгу</h2>
+                <div className="modal__wrap">
                     <img
                         src={getCover(this.state.updatedBook.cover)}
                         alt={this.state.updatedBook.description}
                         className="image-preview"
                     />
-                    <h2>Добавить книгу</h2>
-                    <fieldset className="modal__fieldset">
-                        <label className="modal__label">
-                            Название:
-                            <input
-                                name="title"
-                                className="modal__input"
-                                type="text"
-                                onChange={this.handleInputChange}
-                                required
-                            />
-                        </label>
-                        <label className="modal__label">
-                            Обложка:
-                            <input
-                                name="cover"
-                                className="modal__input"
-                                type="file"
-                                onChange={this.handleFileUpload}
-                            />
-                        </label>
-                        <label className="modal__label">
-                            Описание:
-                            <textarea
-                                name="description"
-                                className="modal__input"
-                                rows="5"
-                                onChange={this.handleInputChange}
-                                required
-                            />
-                        </label>
-                        <label className="modal__label">
-                            Автор:
-                            <input
-                                name="author"
-                                className="modal__input"
-                                type="text"
-                                onChange={this.handleInputChange}
-                                required
-                            />
-                        </label>
-                        <label className="modal__label">
-                            Код ISBN:
-                            <input
-                                name="isbn"
-                                className="modal__input"
-                                type="text"
-                                onChange={this.handleInputChange}
-                                required
-                            />
-                        </label>
-                        <label className="modal__label">
-                            Год издания:
-                            <input
-                                name="year"
-                                className="modal__input"
-                                type="number"
-                                step="1"
-                                onChange={this.handleInputChange}
-                                required
-                            />
-                        </label>
-                        <p className="modal__rating">
-                            <span>Рейтинг:</span>
-                            <StarRatingComponent
-                                className="modal__stars"
-                                name="rating"
-                                starCount={5}
-                                onStarClick={this.handleStarClick}
-                            />
-                        </p>
-                    </fieldset>
-                    <button
-                        className="modal__button"
-                        type="submit"
+                    <form
+                        className="modal__form"
+                        onSubmit={this.handleSubmit}
                     >
-                        Добавить
-                    </button>
-                </form>
+                        <fieldset className="modal__fieldset">
+                            <label className="modal__label">
+                                Название:
+                                <input
+                                    name="title"
+                                    className="modal__input"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <label className="modal__label">
+                                Обложка:
+                                <input
+                                    name="cover"
+                                    className="modal__input"
+                                    type="file"
+                                    onChange={this.handleFileUpload}
+                                />
+                            </label>
+                            <label className="modal__label">
+                                Описание:
+                                <textarea
+                                    name="description"
+                                    className="modal__input"
+                                    rows="5"
+                                    onChange={this.handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <label className="modal__label">
+                                Автор:
+                                <input
+                                    name="author"
+                                    className="modal__input"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <label className="modal__label">
+                                Код ISBN:
+                                <input
+                                    name="isbn"
+                                    className="modal__input"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <label className="modal__label">
+                                Год издания:
+                                <input
+                                    name="year"
+                                    className="modal__input"
+                                    type="number"
+                                    step="1"
+                                    onChange={this.handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <p className="modal__rating">
+                                <span>Рейтинг:</span>
+                                <StarRatingComponent
+                                    className="modal__stars"
+                                    name="rating"
+                                    starCount={5}
+                                    onStarClick={this.handleStarClick}
+                                />
+                            </p>
+                        </fieldset>
+                        <button
+                            className="modal__button"
+                            type="submit"
+                        >
+                            Добавить
+                        </button>
+                    </form>
+                </div>
             </section>
         )
     }
