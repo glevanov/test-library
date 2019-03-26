@@ -6,7 +6,7 @@ export default [
         author: 'Джоан Кэтлин Роулинг',
         isbn: '0439708184',
         year: 1999,
-        rating: 4.4,
+        rating: 4,
     },
     {
         title: 'Гарри Поттер и Тайная комната',
@@ -15,6 +15,6 @@ export default [
         author: 'Джоан Кэтлин Роулинг',
         isbn: '9780439064873',
         year: 2000,
-        rating: 4.7,
+        rating: 5,
     },
 ];

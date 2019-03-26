@@ -84,3 +84,14 @@
     color: #aaaaaa;
     border-color: #aaaaaa;
 }
+
+.modal__rating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
+}
+
+.modal__stars {
+    font-size: 30px;
+}

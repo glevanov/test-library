@@ -1,5 +1,6 @@
 import React from "react";
 import { getCover} from "../util";
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class InspectBook extends React.Component {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class InspectBook extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleStarClick = this.handleStarClick.bind(this);
         this.switchEditingEnabled = this.switchEditingEnabled.bind(this);
     }
 
@@ -31,7 +33,16 @@ export default class InspectBook extends React.Component {
         this.setState(state => ({
             updatedBook: {
                 ...state.updatedBook,
-                [name]: value
+                [name]: value,
+            }
+        }));
+    }
+
+    handleStarClick(newValue) {
+        this.setState(state => ({
+            updatedBook: {
+                ...state.updatedBook,
+                rating: newValue,
             }
         }));
     }
@@ -134,20 +145,17 @@ export default class InspectBook extends React.Component {
                                     disabled={!this.state.isEditingEnabled}
                                 />
                             </label>
-                            <label className="modal__label">
-                                Рейтинг:
-                                <input
+                            <p className="modal__rating">
+                                <span>Рейтинг:</span>
+                                <StarRatingComponent
+                                    className="modal__stars"
                                     name="rating"
-                                    className="modal__input"
-                                    type="number"
-                                    min="0"
-                                    max="5"
-                                    step="0.1"
-                                    onChange={this.handleInputChange}
+                                    starCount={5}
+                                    editing={this.state.isEditingEnabled}
                                     value={this.state.updatedBook.rating}
-                                    disabled={!this.state.isEditingEnabled}
+                                    onStarClick={this.handleStarClick}
                                 />
-                            </label>
+                            </p>
                         </fieldset>
                         <div className="modal__buttons-wrap">
                             <button

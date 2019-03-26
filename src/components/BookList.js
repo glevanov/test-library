@@ -1,6 +1,7 @@
 import React from "react";
 import { getCover} from "../util";
 import { Link } from "react-router-dom";
+import StarRatingComponent from "react-star-rating-component";
 
 export default class BookList extends React.Component {
     render() {
@@ -20,7 +21,13 @@ export default class BookList extends React.Component {
                             className="book__thumb"
                         />
                         <p className="book__title">{book.title}</p>
-                        <p className="book__rating">{book.rating}/5</p>
+                        <StarRatingComponent
+                            className="book__rating"
+                            name="rating"
+                            starCount={5}
+                            editable={false}
+                            value={book.rating}
+                        />
                     </Link>
                 </article>
             </li>
