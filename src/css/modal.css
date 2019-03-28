@@ -44,16 +44,18 @@
     font-size: 16px;
 
     border: 1px solid #aaaaaa;
+    background-color: #ffffff;
 
     resize: none;
 }
 
-.modal__input:disabled {
-    border-color: transparent;
+.modal__input:disabled,
+.modal__input:read-only {
+    border-color: #eeeeee;
     background-color: #eeeeee;
 }
 
-.modal__input:focus {
+.modal__input:focus:not(:read-only) {
     border-color: #000000;
     box-shadow:  0 0 3px rgba(0,0,0,0.5);
 }

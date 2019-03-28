@@ -113,7 +113,7 @@ export default class Book extends React.Component {
                                     required
                                     autoFocus={true}
                                     autoComplete="false"
-                                    disabled={!this.state.isEditable}
+                                    readOnly={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -136,7 +136,7 @@ export default class Book extends React.Component {
                                     value={this.state.book.description}
                                     required
                                     autoComplete="false"
-                                    disabled={!this.state.isEditable}
+                                    readOnly={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -149,7 +149,7 @@ export default class Book extends React.Component {
                                     value={this.state.book.author}
                                     required
                                     autoComplete="false"
-                                    disabled={!this.state.isEditable}
+                                    readOnly={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -162,7 +162,7 @@ export default class Book extends React.Component {
                                     value={this.state.book.isbn}
                                     required
                                     autoComplete="false"
-                                    disabled={!this.state.isEditable}
+                                    readOnly={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -176,7 +176,7 @@ export default class Book extends React.Component {
                                     value={this.state.book.year}
                                     required
                                     autoComplete="false"
-                                    disabled={!this.state.isEditable}
+                                    readOnly={!this.state.isEditable}
                                 />
                             </label>
                             <div className="modal__rating">
