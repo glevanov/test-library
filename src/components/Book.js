@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { getCover } from '../util'
+import { getCover} from '../util'
 import StarRatingComponent from 'react-star-rating-component';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
@@ -206,3 +207,11 @@ export default class Book extends React.Component {
         )
     }
 }
+
+Book.propTypes = {
+    book: PropTypes.object,
+    addBook: PropTypes.func,
+    heading: PropTypes.string,
+    isEditable: PropTypes.bool,
+    mode: PropTypes.string,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getCover} from '../util';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
@@ -36,3 +37,8 @@ export default class BookList extends React.Component {
         )
     }
 }
+
+BookList.propTypes = {
+    books: PropTypes.array,
+    inspectBook: PropTypes.func,
+};
