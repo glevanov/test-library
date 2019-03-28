@@ -1,7 +1,7 @@
-import React from "react";
-import { getCover} from "../util";
-import { Link } from "react-router-dom";
-import StarRatingComponent from "react-star-rating-component";
+import React from 'react';
+import { getCover} from '../util';
+import { Link } from 'react-router-dom';
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class BookList extends React.Component {
     render() {
@@ -18,6 +18,7 @@ export default class BookList extends React.Component {
                             alt={book.title}
                             className="book__thumb image-preview"
                         />
+                    </Link>
                         <p className="book__title">{book.title}</p>
                         <StarRatingComponent
                             className="book__rating"
@@ -26,7 +27,6 @@ export default class BookList extends React.Component {
                             editable={false}
                             value={book.rating}
                         />
-                    </Link>
                 </article>
             </li>
         ));

@@ -5,3 +5,13 @@ export const getCover = (url) => {
     }
     return url;
 };
+
+export const emptyBook = {
+    title: "",
+    cover: "",
+    description: "",
+    author: "",
+    isbn: "",
+    year: "",
+    rating: 0,
+};

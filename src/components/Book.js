@@ -1,14 +1,17 @@
-import React from "react";
-import { getCover} from "../util";
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { getCover } from '../util'
 import StarRatingComponent from 'react-star-rating-component';
+import AddControls from './AddControls';
+import InspectControls from './InspectControls';
 
-export default class InspectBook extends React.Component {
+export default class Book extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isEditingEnabled: false,
-            index: this.props.book.index,
-            updatedBook: {
+            isEditable: this.props.isEditable,
+            readyToSubmit: false,
+            book: {
                 title: this.props.book.title,
                 cover: this.props.book.cover,
                 description: this.props.book.description,
@@ -20,9 +23,26 @@ export default class InspectBook extends React.Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.toggleEditable = this.toggleEditable.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleStarClick = this.handleStarClick.bind(this);
-        this.switchEditingEnabled = this.switchEditingEnabled.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+    }
+
+    handleSubmit(evt) {
+        evt.preventDefault();
+        if (this.props.mode === 'add') {
+            this.props.addBook(evt, this.state.book);
+        } else {
+            this.props.updateBook(evt, this.state.book);
+        }
+        this.setState({readyToSubmit: true})
+    }
+
+    toggleEditable() {
+        this.setState({
+            isEditable: !this.state.isEditable
+        });
     }
 
     handleInputChange(evt) {
@@ -31,8 +51,8 @@ export default class InspectBook extends React.Component {
         const name = target.name;
 
         this.setState(state => ({
-            updatedBook: {
-                ...state.updatedBook,
+            book: {
+                ...state.book,
                 [name]: value,
             }
         }));
@@ -40,32 +60,41 @@ export default class InspectBook extends React.Component {
 
     handleStarClick(newValue) {
         this.setState(state => ({
-            updatedBook: {
-                ...state.updatedBook,
+            book: {
+                ...state.book,
                 rating: newValue,
             }
         }));
     }
 
-    handleSubmit (evt) {
-        evt.preventDefault();
-        this.props.updateBook(evt, this.state.updatedBook, this.state.index);
-    }
-
-    switchEditingEnabled() {
-        this.setState({
-            isEditingEnabled: !this.state.isEditingEnabled
-        });
+    handleFileUpload(evt) {
+        const file = evt.target.files[0];
+        const reader = new FileReader();
+        reader.addEventListener("load", () => {
+            if (file.type.startsWith('image/')) {
+                this.setState(state => ({
+                    book: {
+                        ...state.book,
+                        cover: reader.result,
+                    }
+                }));
+            }
+        }, false);
+        reader.readAsDataURL(file);
     }
 
     render() {
+        if (this.state.readyToSubmit) {
+            return <Redirect to="/" />
+        }
+
         return (
             <section className="modal">
-                <h2 className="modal__heading">Просмотр и редактирование</h2>
+                <h2 className="modal__heading">{this.props.heading}</h2>
                 <div className="modal__wrap">
                     <img
-                        src={getCover(this.state.updatedBook.cover)}
-                        alt={this.state.updatedBook.title}
+                        src={getCover(this.state.book.cover)}
+                        alt={this.state.book.description}
                         className="image-preview"
                     />
                     <form
@@ -80,9 +109,11 @@ export default class InspectBook extends React.Component {
                                     className="modal__input"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    value={this.state.updatedBook.title}
+                                    value={this.state.book.title}
                                     required
-                                    disabled={!this.state.isEditingEnabled}
+                                    autoFocus={true}
+                                    autoComplete="false"
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -90,8 +121,9 @@ export default class InspectBook extends React.Component {
                                 <input
                                     name="cover"
                                     className="modal__input"
-                                    type="text"
-                                    disabled
+                                    type="file"
+                                    onChange={this.handleFileUpload}
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -101,9 +133,10 @@ export default class InspectBook extends React.Component {
                                     className="modal__input"
                                     rows="5"
                                     onChange={this.handleInputChange}
-                                    value={this.state.updatedBook.description}
+                                    value={this.state.book.description}
                                     required
-                                    disabled={!this.state.isEditingEnabled}
+                                    autoComplete="false"
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -113,9 +146,10 @@ export default class InspectBook extends React.Component {
                                     className="modal__input"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    value={this.state.updatedBook.author}
+                                    value={this.state.book.author}
                                     required
-                                    disabled={!this.state.isEditingEnabled}
+                                    autoComplete="false"
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -125,9 +159,10 @@ export default class InspectBook extends React.Component {
                                     className="modal__input"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    value={this.state.updatedBook.isbn}
+                                    value={this.state.book.isbn}
                                     required
-                                    disabled={!this.state.isEditingEnabled}
+                                    autoComplete="false"
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
                             <label className="modal__label">
@@ -138,40 +173,33 @@ export default class InspectBook extends React.Component {
                                     type="number"
                                     step="1"
                                     onChange={this.handleInputChange}
-                                    value={this.state.updatedBook.year}
+                                    value={this.state.book.year}
                                     required
-                                    disabled={!this.state.isEditingEnabled}
+                                    autoComplete="false"
+                                    disabled={!this.state.isEditable}
                                 />
                             </label>
-                            <p className="modal__rating">
+                            <div className="modal__rating">
                                 <span>Рейтинг:</span>
                                 <StarRatingComponent
                                     className="modal__stars"
                                     name="rating"
                                     starCount={5}
-                                    editing={this.state.isEditingEnabled}
-                                    value={this.state.updatedBook.rating}
+                                    editing={this.state.isEditable}
+                                    value={this.state.book.rating}
                                     onStarClick={this.handleStarClick}
+                                    disabled={!this.state.isEditable}
                                 />
-                            </p>
+                            </div>
                         </fieldset>
-                        <div className="modal__buttons-wrap">
-                            <button
-                                className="modal__button"
-                                type="button"
-                                onClick={this.switchEditingEnabled}
-                            >
-                                Редактировать книгу
-                            </button>
-                            <button
-                                className="modal__button"
-                                type="submit"
-                                onClick={(evt) => this.handleSubmit(evt)}
-                                disabled={!this.state.isEditingEnabled}
-                            >
-                                Сохранить изменения
-                            </button>
-                        </div>
+                        {this.props.mode === 'add'
+                            ? <AddControls />
+                            : <InspectControls
+                                toggleEditable={this.toggleEditable}
+                                handleSubmit={this.handleSubmit}
+                                isEditable={this.state.isEditable}
+                            />
+                        }
                     </form>
                 </div>
             </section>

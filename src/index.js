@@ -1,12 +1,12 @@
 import React from 'react';
-import {render} from 'react-dom';
+import { render } from 'react-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
+import { emptyBook } from './util';
 import mockBooks from './books';
 import Root from './components/Root';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import InspectBook from "./components/InspectBook";
-import AddBook from "./components/AddBook";
-import BookList from "./components/BookList";
+import Book from './components/Book';
+import BookList from './components/BookList';
 
 class App extends React.Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class App extends React.Component {
         this.state = {
             books: mockBooks,
             currentBook: {},
+            currentIndex: null,
         };
         this.addBook = this.addBook.bind(this);
         this.inspectBook = this.inspectBook.bind(this);
@@ -30,16 +31,16 @@ class App extends React.Component {
 
     inspectBook(i) {
         const book = this.state.books.slice(i, i + 1)[0];
-        book.index = i;
+        this.setState({currentIndex: i});
         this.setState({currentBook: book});
     }
 
-    updateBook(evt, book, i) {
+    updateBook(evt, book) {
         this.setState((state) => ({
                 books: [].concat(
-                    state.books.slice(0, i),
+                    state.books.slice(0, this.state.currentIndex),
                     [book],
-                    state.books.slice(i + 1),
+                    state.books.slice(this.state.currentIndex + 1),
                 ),
             })
         );
@@ -56,19 +57,26 @@ class App extends React.Component {
                             render={() => <BookList
                                 books={this.state.books}
                                 inspectBook={this.inspectBook}
+                                mode={'inspect'}
                             />}
                         />
                         <Route
                             path="/add/"
-                            render={() => <AddBook
+                            render={() => <Book
+                                book={emptyBook}
                                 addBook={this.addBook}
+                                heading={'Добавить книгу'}
+                                isEditable={true}
+                                mode={'add'}
                             />}
                         />
                         <Route
                             path="/inspect/"
-                            render={() => <InspectBook
+                            render={() => <Book
                                 book={this.state.currentBook}
                                 updateBook={this.updateBook}
+                                heading={'Просмотр и редактирование'}
+                                isEditable={false}
                             />}
                         />
                     </Switch>

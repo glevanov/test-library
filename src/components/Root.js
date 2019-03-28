@@ -1,5 +1,5 @@
-import Menu from "./Menu";
-import React from "react";
+import Menu from './Menu';
+import React from 'react';
 
 export default class Root extends React.Component {
     render() {
