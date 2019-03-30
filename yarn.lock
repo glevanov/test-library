@@ -8793,6 +8793,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
+simple-isbn@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/simple-isbn/-/simple-isbn-1.1.3.tgz#4442cf9391d21bb01b1cc121a8672cb48b6f8517"
+  integrity sha512-PMQjBE3T2V4nPPfsYw91JE9osJhy+agXZEWHxxCYhcnZaWTk2qQYiCERad7j15Q00HBj8zue7MuC312CLGpzPA==
+
 simple-swizzle@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/simple-swizzle/-/simple-swizzle-0.2.2.tgz#a4da6b635ffcccca33f70d17cb92592de95e557a"

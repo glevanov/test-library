@@ -5,6 +5,7 @@ import { getCover} from '../util'
 import StarRatingComponent from 'react-star-rating-component';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
+import { isYear, isISBN } from '../validation';
 
 export default class Book extends React.Component {
     constructor(props) {
@@ -48,8 +49,10 @@ export default class Book extends React.Component {
 
     handleInputChange(evt) {
         const target = evt.target;
-        const value = target.value;
         const name = target.name;
+        const value = (name === 'isbn')
+            ? target.value.replace(/-/g, "").trim()
+            : target.value;
 
         this.setState(state => ({
             book: {
@@ -57,6 +60,7 @@ export default class Book extends React.Component {
                 [name]: value,
             }
         }));
+        this.handleCustomValidity();
     }
 
     handleStarClick(newValue) {
@@ -82,6 +86,19 @@ export default class Book extends React.Component {
             }
         }, false);
         reader.readAsDataURL(file);
+    }
+
+    handleCustomValidity() {
+        const form = document.querySelector('.modal__form');
+        const year = form.querySelector('.modal__input[name=year]');
+        const isbn = form.querySelector('.modal__input[name=isbn]');
+
+        (!isYear(this.state.book.year))
+            ? year.setCustomValidity('Указан неверный год')
+            : year.setCustomValidity('');
+        (!isISBN(this.state.book.isbn))
+            ? isbn.setCustomValidity('Указан неверный ISBN')
+            : isbn.setCustomValidity('');
     }
 
     render() {
