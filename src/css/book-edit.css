@@ -1,15 +1,15 @@
-.modal {
+.book-edit {
     margin-bottom: 20px;
 
     background-color: #ffffff;
 }
 
-.modal__form {
+.book-edit__form {
     width: 100%;
     max-width: 560px;
 }
 
-.modal__wrap {
+.book-edit__wrap {
     display: flex;
     flex-wrap: wrap;
     column-gap: 20px;
@@ -17,11 +17,11 @@
     align-items: flex-start;
 }
 
-.modal__heading {
+.book-edit__heading {
     margin-top: 0;
 }
 
-.modal__fieldset {
+.book-edit__fieldset {
     display: flex;
     flex-direction: column;
     margin: 0 0 7px;
@@ -31,12 +31,12 @@
     border: 1px solid #999999;
 }
 
-.modal__label {
+.book-edit__label {
     display: flex;
     flex-direction: column;
 }
 
-.modal__input {
+.book-edit__input {
     width: auto;
     padding: 2px 5px;
 
@@ -49,23 +49,30 @@
     resize: none;
 }
 
-.modal__input:disabled,
-.modal__input:read-only {
+.book-edit__input:disabled,
+.book-edit__input:read-only {
     border-color: #eeeeee;
     background-color: #eeeeee;
 }
 
-.modal__input:focus:not(:read-only) {
+.book-edit__input:focus:not(:read-only) {
     border-color: #000000;
     box-shadow:  0 0 3px rgba(0,0,0,0.5);
 }
 
-.modal__buttons-wrap {
+.book-edit__input:invalid {
+    background-color: #ffebee;
+    border-color: #ef9a9a;
+    color: #e57373;
+    box-shadow:  0 0 3px rgba(239, 83, 80, 0.7);
+}
+
+.book-edit__buttons-wrap {
     display: flex;
     column-gap: 15px;
 }
 
-.modal__button {
+.book-edit__button {
     display: block;
     padding: 10px;
 
@@ -78,23 +85,23 @@
     color: #000000;
 }
 
-.modal__button:hover:not(:disabled),
-.modal__button:focus {
+.book-edit__button:hover:not(:disabled),
+.book-edit__button:focus {
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-.modal__button:disabled {
+.book-edit__button:disabled {
     color: #aaaaaa;
     border-color: #aaaaaa;
 }
 
-.modal__rating {
+.book-edit__rating {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 0;
 }
 
-.modal__stars {
+.book-edit__stars {
     font-size: 30px;
 }

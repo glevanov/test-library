@@ -9,6 +9,4 @@ export const isYear = (str) => {
         && data <= currentYear;
 };
 
-export const isISBN = (str) => {
-    return isbn.isValidIsbn(str);
-};
+export const isISBN = (str) => isbn.isValidIsbn(str);

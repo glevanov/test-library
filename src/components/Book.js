@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { getCover} from '../util'
+import { getCover} from '../js/util'
 import StarRatingComponent from 'react-star-rating-component';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
-import { isYear, isISBN } from '../validation';
+import { isYear, isISBN } from '../js/validation';
 
 export default class Book extends React.Component {
     constructor(props) {
@@ -60,7 +60,7 @@ export default class Book extends React.Component {
                 [name]: value,
             }
         }));
-        this.handleCustomValidity();
+        Book.handleCustomValidity();
     }
 
     handleStarClick(newValue) {
@@ -88,15 +88,15 @@ export default class Book extends React.Component {
         reader.readAsDataURL(file);
     }
 
-    handleCustomValidity() {
-        const form = document.querySelector('.modal__form');
-        const year = form.querySelector('.modal__input[name=year]');
-        const isbn = form.querySelector('.modal__input[name=isbn]');
+    static handleCustomValidity() {
+        const form = document.querySelector('.book-edit__form');
+        const year = form.querySelector('.book-edit__input[name=year]');
+        const isbn = form.querySelector('.book-edit__input[name=isbn]');
 
-        (!isYear(this.state.book.year))
+        (!isYear(year.value))
             ? year.setCustomValidity('Указан неверный год')
             : year.setCustomValidity('');
-        (!isISBN(this.state.book.isbn))
+        (!isISBN(isbn.value))
             ? isbn.setCustomValidity('Указан неверный ISBN')
             : isbn.setCustomValidity('');
     }
@@ -107,24 +107,24 @@ export default class Book extends React.Component {
         }
 
         return (
-            <section className="modal">
-                <h2 className="modal__heading">{this.props.heading}</h2>
-                <div className="modal__wrap">
+            <section className="book-edit">
+                <h2 className="book-edit__heading">{this.props.heading}</h2>
+                <div className="book-edit__wrap">
                     <img
                         src={getCover(this.state.book.cover)}
                         alt={this.state.book.description}
                         className="image-preview"
                     />
                     <form
-                        className="modal__form"
+                        className="book-edit__form"
                         onSubmit={this.handleSubmit}
                     >
-                        <fieldset className="modal__fieldset">
-                            <label className="modal__label">
+                        <fieldset className="book-edit__fieldset">
+                            <label className="book-edit__label">
                                 Название:
                                 <input
                                     name="title"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     type="text"
                                     onChange={this.handleInputChange}
                                     value={this.state.book.title}
@@ -134,21 +134,21 @@ export default class Book extends React.Component {
                                     readOnly={!this.state.isEditable}
                                 />
                             </label>
-                            <label className="modal__label">
+                            <label className="book-edit__label">
                                 Обложка:
                                 <input
                                     name="cover"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     type="file"
                                     onChange={this.handleFileUpload}
                                     disabled={!this.state.isEditable}
                                 />
                             </label>
-                            <label className="modal__label">
+                            <label className="book-edit__label">
                                 Описание:
                                 <textarea
                                     name="description"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     rows="5"
                                     onChange={this.handleInputChange}
                                     value={this.state.book.description}
@@ -157,11 +157,11 @@ export default class Book extends React.Component {
                                     readOnly={!this.state.isEditable}
                                 />
                             </label>
-                            <label className="modal__label">
+                            <label className="book-edit__label">
                                 Автор:
                                 <input
                                     name="author"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     type="text"
                                     onChange={this.handleInputChange}
                                     value={this.state.book.author}
@@ -170,11 +170,11 @@ export default class Book extends React.Component {
                                     readOnly={!this.state.isEditable}
                                 />
                             </label>
-                            <label className="modal__label">
+                            <label className="book-edit__label">
                                 Код ISBN:
                                 <input
                                     name="isbn"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     type="text"
                                     onChange={this.handleInputChange}
                                     value={this.state.book.isbn}
@@ -183,11 +183,11 @@ export default class Book extends React.Component {
                                     readOnly={!this.state.isEditable}
                                 />
                             </label>
-                            <label className="modal__label">
+                            <label className="book-edit__label">
                                 Год издания:
                                 <input
                                     name="year"
-                                    className="modal__input"
+                                    className="book-edit__input"
                                     type="number"
                                     step="1"
                                     onChange={this.handleInputChange}
@@ -197,10 +197,10 @@ export default class Book extends React.Component {
                                     readOnly={!this.state.isEditable}
                                 />
                             </label>
-                            <div className="modal__rating">
+                            <div className="book-edit__rating">
                                 <span>Рейтинг:</span>
                                 <StarRatingComponent
-                                    className="modal__stars"
+                                    className="book-edit__stars"
                                     name="rating"
                                     starCount={5}
                                     editing={this.state.isEditable}

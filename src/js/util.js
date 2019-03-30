@@ -1,5 +1,5 @@
 export const getCover = (url) => {
-    const noCover = require('./nocover.jpg');
+    const noCover = require('../nocover.jpg');
     if (!url) {
         return noCover;
     }

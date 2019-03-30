@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getCover} from '../util';
+import { getCover} from '../js/util';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 
