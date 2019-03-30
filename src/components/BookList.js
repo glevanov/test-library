@@ -33,7 +33,10 @@ export default class BookList extends React.Component {
         ));
 
         return (
-            <ul className="feed">{listItems}</ul>
+            <section>
+                <h2>Список книг</h2>
+                <ul className="feed">{listItems}</ul>
+            </section>
         )
     }
 }
