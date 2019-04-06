@@ -67,32 +67,9 @@
     box-shadow:  0 0 3px rgba(239, 83, 80, 0.7);
 }
 
-.book-edit__buttons-wrap {
+.book-edit__buttons {
     display: flex;
     column-gap: 15px;
-}
-
-.book-edit__button {
-    display: block;
-    padding: 10px;
-
-    background-color: rgba(0, 0, 0, 0.05);
-    border: 1px solid #000000;
-    border-radius: 2px;
-
-    font-size: 16px;
-    text-decoration: none;
-    color: #000000;
-}
-
-.book-edit__button:hover:not(:disabled),
-.book-edit__button:focus {
-    background-color: rgba(0, 0, 0, 0.1);
-}
-
-.book-edit__button:disabled {
-    color: #aaaaaa;
-    border-color: #aaaaaa;
 }
 
 .book-edit__rating {

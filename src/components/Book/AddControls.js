@@ -1,12 +1,11 @@
 import React from "react";
+import Button from "components/Button";
 
 export default function AddControls() {
     return (
-        <button
-            className="book-edit__button"
+        <Button
             type="submit"
-        >
-            Добавить
-        </button>
+            text="Добавить"
+        />
     )
 }
