@@ -1,9 +1,24 @@
-@import "css/fonts.css";
-@import "css/page.css";
-@import "css/feed.css";
-@import "css/book.css";
-@import "css/menu.css";
-@import "css/header.css";
-@import "css/main.css";
-@import "css/book-edit.css";
-@import "css/image-preview.css";
+.page {
+    font-family: Roboto, sans-serif;
+    font-size: 16px;
+    line-height: normal;
+    color: #000000;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto'), local('Roboto-Regular'),
+    url('./fonts/roboto-v18-cyrillic_latin-regular.woff2') format('woff2'),
+    url('./fonts/roboto-v18-cyrillic_latin-regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Roboto Bold'), local('Roboto-Bold'),
+    url('./fonts/roboto-v18-cyrillic_latin-700.woff2') format('woff2'),
+    url('./fonts/roboto-v18-cyrillic_latin-700.woff') format('woff');
+}

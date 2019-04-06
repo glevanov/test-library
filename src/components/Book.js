@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { getCover} from '../js/util'
+import './Book.css';
 import StarRatingComponent from 'react-star-rating-component';
+import ImagePreview from './ImagePreview';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
 import { isYear, isISBN } from '../js/validation';
@@ -110,10 +111,9 @@ export default class Book extends React.Component {
             <section className="book-edit">
                 <h2 className="book-edit__heading">{this.props.heading}</h2>
                 <div className="book-edit__wrap">
-                    <img
-                        src={getCover(this.state.book.cover)}
-                        alt={this.state.book.description}
-                        className="image-preview"
+                    <ImagePreview
+                        image={this.state.book.cover}
+                        description={this.state.book.description}
                     />
                     <form
                         className="book-edit__form"

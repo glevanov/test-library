@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getCover} from '../js/util';
+import './BookList.css';
 import { Link } from 'react-router-dom';
+import ImagePreview from './ImagePreview';
 import StarRatingComponent from 'react-star-rating-component';
 
 export default class BookList extends React.Component {
@@ -14,10 +15,9 @@ export default class BookList extends React.Component {
                         to="/inspect"
                         onClick={() => this.props.inspectBook(i)}
                     >
-                        <img
-                            src={getCover(book.cover)}
-                            alt={book.title}
-                            className="book__thumb image-preview"
+                        <ImagePreview
+                            image={book.cover}
+                            description={book.title}
                         />
                     </Link>
                         <p className="book__title">{book.title}</p>

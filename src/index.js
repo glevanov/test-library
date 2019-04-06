@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
-import { emptyBook } from './js/util';
+import emptyBook from './js/emptyBook';
 import mockBooks from './js/books';
 import Root from './components/Root';
 import Book from './components/Book';
