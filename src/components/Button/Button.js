@@ -15,14 +15,21 @@ Button.defaultProps = {
 };
 
 export default function Button(props) {
+    const {
+        type,
+        onClick,
+        disabled,
+        text,
+    } = props;
+
     return (
         <button
             className="book-edit__button"
-            type={props.type}
-            onClick={props.onClick}
-            disabled={props.disabled}
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
         >
-            {props.text}
+            {text}
         </button>
     )
 }

@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import './Book.css';
 import StarRatingComponent from 'react-star-rating-component';
 import ImagePreview from 'components/ImagePreview';
+import Input from './Input';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
 import { isYear, isISBN } from 'js/validation';
@@ -24,15 +25,19 @@ export default class Book extends React.Component {
                 rating: this.props.book.rating,
             }
         };
-
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.toggleEditable = this.toggleEditable.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleStarClick = this.handleStarClick.bind(this);
-        this.handleFileUpload = this.handleFileUpload.bind(this);
     }
 
-    handleSubmit(evt) {
+    static propTypes = {
+        book: PropTypes.object,
+        addBook: PropTypes.func,
+        heading: PropTypes.string,
+        isEditable: PropTypes.bool,
+        mode: PropTypes.string,
+    };
+
+    // TODO передать пустую книгу как дефолт
+
+    handleSubmit = (evt) => {
         evt.preventDefault();
         if (this.props.mode === 'add') {
             this.props.addBook(evt, this.state.book);
@@ -40,15 +45,15 @@ export default class Book extends React.Component {
             this.props.updateBook(evt, this.state.book);
         }
         this.setState({readyToSubmit: true})
-    }
+    };
 
-    toggleEditable() {
+    toggleEditable = () => {
         this.setState({
             isEditable: !this.state.isEditable
         });
-    }
+    };
 
-    handleInputChange(evt) {
+    handleInputChange = (evt) => {
         const target = evt.target;
         const name = target.name;
         const value = (name === 'isbn')
@@ -61,19 +66,19 @@ export default class Book extends React.Component {
                 [name]: value,
             }
         }));
-        Book.handleCustomValidity();
-    }
+        this.handleCustomValidity();
+    };
 
-    handleStarClick(newValue) {
+    handleStarClick = (newValue) => {
         this.setState(state => ({
             book: {
                 ...state.book,
                 rating: newValue,
             }
         }));
-    }
+    };
 
-    handleFileUpload(evt) {
+    handleFileUpload = (evt) => {
         const file = evt.target.files[0];
         const reader = new FileReader();
         reader.addEventListener("load", () => {
@@ -87,9 +92,10 @@ export default class Book extends React.Component {
             }
         }, false);
         reader.readAsDataURL(file);
-    }
+    };
 
-    static handleCustomValidity() {
+    handleCustomValidity = () => {
+        // TODO refs
         const form = document.querySelector('.book-edit__form');
         const year = form.querySelector('.book-edit__input[name=year]');
         const isbn = form.querySelector('.book-edit__input[name=isbn]');
@@ -100,16 +106,21 @@ export default class Book extends React.Component {
         (!isISBN(isbn.value))
             ? isbn.setCustomValidity('Указан неверный ISBN')
             : isbn.setCustomValidity('');
-    }
+    };
 
     render() {
+        const {
+            heading,
+            mode,
+        } = this.props;
+
         if (this.state.readyToSubmit) {
             return <Redirect to="/" />
         }
 
         return (
             <section className="book-edit">
-                <h2 className="book-edit__heading">{this.props.heading}</h2>
+                <h2 className="book-edit__heading">{heading}</h2>
                 <div className="book-edit__wrap">
                     <ImagePreview
                         image={this.state.book.cover}
@@ -120,83 +131,58 @@ export default class Book extends React.Component {
                         onSubmit={this.handleSubmit}
                     >
                         <fieldset className="book-edit__fieldset">
-                            <label className="book-edit__label">
-                                Название:
-                                <input
-                                    name="title"
-                                    className="book-edit__input"
-                                    type="text"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.book.title}
-                                    required
-                                    autoFocus={true}
-                                    autoComplete="false"
-                                    readOnly={!this.state.isEditable}
-                                />
-                            </label>
-                            <label className="book-edit__label">
-                                Обложка:
-                                <input
-                                    name="cover"
-                                    className="book-edit__input"
-                                    type="file"
-                                    onChange={this.handleFileUpload}
-                                    disabled={!this.state.isEditable}
-                                />
-                            </label>
-                            <label className="book-edit__label">
-                                Описание:
-                                <textarea
-                                    name="description"
-                                    className="book-edit__input"
-                                    rows="5"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.book.description}
-                                    required
-                                    autoComplete="false"
-                                    readOnly={!this.state.isEditable}
-                                />
-                            </label>
-                            <label className="book-edit__label">
-                                Автор:
-                                <input
-                                    name="author"
-                                    className="book-edit__input"
-                                    type="text"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.book.author}
-                                    required
-                                    autoComplete="false"
-                                    readOnly={!this.state.isEditable}
-                                />
-                            </label>
-                            <label className="book-edit__label">
-                                Код ISBN:
-                                <input
-                                    name="isbn"
-                                    className="book-edit__input"
-                                    type="text"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.book.isbn}
-                                    required
-                                    autoComplete="false"
-                                    readOnly={!this.state.isEditable}
-                                />
-                            </label>
-                            <label className="book-edit__label">
-                                Год издания:
-                                <input
-                                    name="year"
-                                    className="book-edit__input"
-                                    type="number"
-                                    step="1"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.book.year}
-                                    required
-                                    autoComplete="false"
-                                    readOnly={!this.state.isEditable}
-                                />
-                            </label>
+                            <Input
+                                label="Название"
+                                name="title"
+                                onChange={this.handleInputChange}
+                                value={this.state.book.title}
+                                required={true}
+                                autoFocus={true}
+                                readOnly={!this.state.isEditable}
+                            />
+                            <Input
+                                label="Обложка"
+                                name="cover"
+                                type="file"
+                                onChange={this.handleFileUpload}
+                                disabled={!this.state.isEditable}
+                            />
+                            <Input
+                                label="Описание"
+                                name="description"
+                                type="textarea"
+                                rows={5}
+                                onChange={this.handleInputChange}
+                                value={this.state.book.description}
+                                required={true}
+                                readOnly={!this.state.isEditable}
+                            />
+                            <Input
+                                label="Автор"
+                                name="author"
+                                onChange={this.handleInputChange}
+                                value={this.state.book.author}
+                                required={true}
+                                readOnly={!this.state.isEditable}
+                            />
+                            <Input
+                                label="Код ISBN"
+                                name="isbn"
+                                onChange={this.handleInputChange}
+                                value={this.state.book.isbn}
+                                required={true}
+                                readOnly={!this.state.isEditable}
+                            />
+                            <Input
+                                label="Год издания"
+                                name="year"
+                                type="number"
+                                step={1}
+                                onChange={this.handleInputChange}
+                                value={this.state.book.year}
+                                required={true}
+                                readOnly={!this.state.isEditable}
+                            />
                             <div className="book-edit__rating">
                                 <span>Рейтинг:</span>
                                 <StarRatingComponent
@@ -210,7 +196,7 @@ export default class Book extends React.Component {
                                 />
                             </div>
                         </fieldset>
-                        {this.props.mode === 'add'
+                        {mode === 'add'
                             ? <AddControls />
                             : <InspectControls
                                 toggleEditable={this.toggleEditable}
@@ -224,11 +210,3 @@ export default class Book extends React.Component {
         )
     }
 }
-
-Book.propTypes = {
-    book: PropTypes.object,
-    addBook: PropTypes.func,
-    heading: PropTypes.string,
-    isEditable: PropTypes.bool,
-    mode: PropTypes.string,
-};
