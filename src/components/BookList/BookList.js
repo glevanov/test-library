@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './BookList.css';
 import { Link } from 'react-router-dom';
-import ImagePreview from './ImagePreview';
+import ImagePreview from 'components/ImagePreview';
 import StarRatingComponent from 'react-star-rating-component';
 
 export default class BookList extends React.Component {

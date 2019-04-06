@@ -2,11 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './index.css';
-import emptyBook from './js/emptyBook';
-import mockBooks from './js/books';
-import Root from './components/Root';
-import Book from './components/Book';
-import BookList from './components/BookList';
+import emptyBook from 'js/emptyBook';
+import mockBooks from 'js/books';
+import Root from 'components/Root';
+import Book from 'components/Book';
+import BookList from 'components/BookList';
 
 class App extends React.Component {
     constructor(props) {

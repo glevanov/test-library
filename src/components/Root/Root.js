@@ -1,4 +1,4 @@
-import Menu from './Menu';
+import Menu from 'components/Menu';
 import React from 'react';
 import './Root.css';
 

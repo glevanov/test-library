@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './ImagePreview.css'
-import getCover from "../js/getCover";
+import getCover from "js/getCover";
 
 ImagePreview.propTypes = {
     image: PropTypes.string,

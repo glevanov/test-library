@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import './Book.css';
 import StarRatingComponent from 'react-star-rating-component';
-import ImagePreview from './ImagePreview';
+import ImagePreview from 'components/ImagePreview';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
-import { isYear, isISBN } from '../js/validation';
+import { isYear, isISBN } from 'js/validation';
 
 export default class Book extends React.Component {
     constructor(props) {
