@@ -16,26 +16,23 @@ class App extends React.Component {
             currentBook: {},
             currentIndex: null,
         };
-        this.addBook = this.addBook.bind(this);
-        this.inspectBook = this.inspectBook.bind(this);
-        this.updateBook = this.updateBook.bind(this);
     }
 
-    addBook(evt, book) {
+    addBook = (evt, book) => {
         evt.preventDefault();
         this.setState((state) => ({
                 books: state.books.concat([book]),
             })
         );
-    }
+    };
 
-    inspectBook(i) {
+    inspectBook = (i) => {
         const book = this.state.books.slice(i, i + 1)[0];
         this.setState({currentIndex: i});
         this.setState({currentBook: book});
-    }
+    };
 
-    updateBook(evt, book) {
+    updateBook = (evt, book) => {
         this.setState((state) => ({
                 books: [].concat(
                     state.books.slice(0, this.state.currentIndex),
@@ -44,7 +41,7 @@ class App extends React.Component {
                 ),
             })
         );
-    }
+    };
 
     render() {
         return (

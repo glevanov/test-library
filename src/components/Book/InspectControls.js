@@ -8,6 +8,10 @@ InspectControls.propTypes = {
     isEditable: PropTypes.bool,
 };
 
+InspectControls.defaultProps = {
+    isEditable: false,
+};
+
 export default function InspectControls(props) {
     return (
         <div className="book-edit__buttons">

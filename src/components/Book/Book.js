@@ -8,6 +8,7 @@ import Input from './Input';
 import AddControls from './AddControls';
 import InspectControls from './InspectControls';
 import { isYear, isISBN } from 'js/validation';
+import emptyBook from 'js/emptyBook';
 
 export default class Book extends React.Component {
     constructor(props) {
@@ -35,7 +36,10 @@ export default class Book extends React.Component {
         mode: PropTypes.string,
     };
 
-    // TODO передать пустую книгу как дефолт
+    static defaultProps = {
+        book: emptyBook,
+        isEditable: false,
+    };
 
     handleSubmit = (evt) => {
         evt.preventDefault();
@@ -95,7 +99,6 @@ export default class Book extends React.Component {
     };
 
     handleCustomValidity = () => {
-        // TODO refs
         const form = document.querySelector('.book-edit__form');
         const year = form.querySelector('.book-edit__input[name=year]');
         const isbn = form.querySelector('.book-edit__input[name=isbn]');

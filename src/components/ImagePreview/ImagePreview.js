@@ -8,6 +8,10 @@ ImagePreview.propTypes = {
     description: PropTypes.string,
 };
 
+ImagePreview.defaultProps = {
+    description: '',
+};
+
 export default function ImagePreview(props) {
     return (
         <img

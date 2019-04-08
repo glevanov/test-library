@@ -4,14 +4,13 @@ import './BookList.css';
 import { Link } from 'react-router-dom';
 import ImagePreview from 'components/ImagePreview';
 import StarRatingComponent from 'react-star-rating-component';
-import Button from "components/Button";
 
 BookList.propTypes = {
     books: PropTypes.array,
     inspectBook: PropTypes.func,
 };
 
-Button.defaultProps = {
+BookList.defaultProps = {
     books: [],
 };
 
@@ -27,7 +26,6 @@ export default function BookList(props) {
                 <Link
                     className="book__link"
                     to="/inspect"
-                    /* TODO как бы выпилить стрелочную функцию? */
                     onClick={() => inspectBook(i)}
                 >
                     <ImagePreview
