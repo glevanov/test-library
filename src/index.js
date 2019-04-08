@@ -51,7 +51,7 @@ class App extends React.Component {
                         <Route
                             exact
                             path="/"
-                            render={() => <BookList
+                            component={() => <BookList
                                 books={this.state.books}
                                 inspectBook={this.inspectBook}
                                 mode={'inspect'}
@@ -59,7 +59,7 @@ class App extends React.Component {
                         />
                         <Route
                             path="/add/"
-                            render={() => <Book
+                            component={() => <Book
                                 book={emptyBook}
                                 addBook={this.addBook}
                                 heading={'Добавить книгу'}
@@ -69,7 +69,7 @@ class App extends React.Component {
                         />
                         <Route
                             path="/inspect/"
-                            render={() => <Book
+                            component={() => <Book
                                 book={this.state.currentBook}
                                 updateBook={this.updateBook}
                                 heading={'Просмотр и редактирование'}
