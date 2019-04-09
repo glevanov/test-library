@@ -22,8 +22,8 @@ Input.defaultProps = {
     autoComplete: false,
 };
 
-export default function Input(props) {
-    const {
+export default function Input(
+    {
         label,
         name,
         type,
@@ -36,7 +36,7 @@ export default function Input(props) {
         autoComplete,
         readOnly,
         disabled,
-    } = props;
+    }) {
 
     const isTextarea = (type === 'textarea');
     const TagType = `${(isTextarea) ? 'textarea' : 'input'}`;

@@ -14,11 +14,11 @@ BookList.defaultProps = {
     books: [],
 };
 
-export default function BookList(props) {
-    const {
+export default function BookList(
+    {
         books,
         inspectBook,
-    } = props;
+    }) {
 
     const listItems = books.map((book, i) => (
         <li key={book.isbn}>

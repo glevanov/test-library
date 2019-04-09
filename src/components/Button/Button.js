@@ -14,13 +14,12 @@ Button.defaultProps = {
     disabled: false,
 };
 
-export default function Button(props) {
-    const {
+export default function Button({
         type,
         onClick,
         disabled,
         text,
-    } = props;
+    }) {
 
     return (
         <button

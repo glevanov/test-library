@@ -12,12 +12,15 @@ ImagePreview.defaultProps = {
     description: '',
 };
 
-export default function ImagePreview(props) {
+export default function ImagePreview({
+        image,
+        description,
+    }) {
     return (
         <img
             className="image-preview"
-            src={getCover(props.image)}
-            alt={props.description}
+            src={getCover(image)}
+            alt={description}
         />
     )
 }
