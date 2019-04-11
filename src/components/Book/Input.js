@@ -8,7 +8,10 @@ Input.propTypes = {
     rows: PropTypes.number,
     step: PropTypes.number,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     required: PropTypes.bool,
     autoFocus: PropTypes.bool,
     autoComplete: PropTypes.bool,
@@ -18,7 +21,6 @@ Input.propTypes = {
 
 Input.defaultProps = {
     type: 'text',
-    value: '',
     autoComplete: false,
 };
 
